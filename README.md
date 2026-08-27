@@ -191,8 +191,5 @@ When `record_visualization` is enabled, outputs are written under `recordings/<t
 - `sim/` — main simulation multi-view video / GIF
 - `phase1/`, `phase2/`, `phase3/` — planning artifacts, overlays, and path JSON
 
-<p align="center">
-  <a href="results.md"><img src="https://img.shields.io/badge/TestResult-View_Results-0f766e?style=for-the-badge" alt="TestResult"/></a>
-</p>
 
 Recorded missions are collected in [`results.md`](results.md): **1-1 ~ 2-26** show four GIFs from the mission folder; **3-1 ~ 3-15** show four GIFs from each folder's `sim/` directory.
