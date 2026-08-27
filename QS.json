@@ -1,0 +1,102 @@
+[
+    {
+        "Q": "If the instruction is to navigate to a specific location but does not say whether to go straight there or with obstacle avoidance",
+        "S": "Use obstacle-aware navigation by default: plan a collision-free path among scene objects, prefer smooth segments, and stop at the goal in the tabletop workspace. If the target is unclear, first center the goal in the camera, then close the remaining distance in short segments while staying inside the arm-reachable volume."
+    },
+    {
+        "Q": "If the instruction is to pass through an object but gives no concrete coordinates or position, only a color",
+        "S": "Resolve the nearest instance of that color from the current view and global/workspace imagery when available; approach along the opening normal, aim for the geometric center of the passage, and pass through without grazing sides. If several portals share similar hues, prefer the one whose opening is largest and most centered in view."
+    },
+    {
+        "Q": "If the instruction asks the drone to fly a specified path in the air but does not specify flight altitude",
+        "S": "Execute the path as a shallow aerial circuit wholly inside the tabletop workspace: lock cruise height to the upper-middle Z band between clearance above obstacles and the workspace ceiling; avoid diving to table height unless the user names a near-ground maneuver. Prefer smooth lateral curves (e.g. alternating banked segments for figure-eight style requests); keep each /act horizon short so position targets stay trackable. Do not chase unrelated colored portals unless the user ties the path to them; prioritize geometric continuation of the requested trajectory over sidetracks. After each segment, verify the drone still lies in the workspace hull and resume the pattern."
+    },
+    {
+        "Q": "If the instruction provides no concrete task location information",
+        "S": "Infer targets from the global/workspace map and salient colored structures; propose a short ordered list of waypoints inside the workspace and execute them sequentially with verification in image between segments."
+    },
+    {
+        "Q": "If the instruction does not specify the drone's flight speed",
+        "S": "Use a moderate, stable speed: favor continuous trackable motion over aggressive jumps so predicted targets remain reachable and the policy does not saturate."
+    },
+    {
+        "Q": "If the instruction requires the drone to visit every object in the scene",
+        "S": "Visit each object in a deterministic order (e.g. ascending distance from current pose); at each site, pause briefly for sensing. For ground objects observe front, back, left, right, and top; for suspended objects add bottom. Confirm the correct instance in image before moving on."
+    },
+    {
+        "Q": "If the instruction requires a patrol but gives no specific patrol area, number of laps, or path",
+        "S": "Patrol only inside the bridge-style tabletop workspace: clear obstacles by height, orbit or sweep so each colored portal or block receives a nearby inspection point, connect waypoints with smooth arcs, keep heading changes gradual, and close the route back toward the initial pose. Do not wander beyond the visible table scene; if a waypoint would leave the box, clip it to the workspace hull."
+    },
+    {
+        "Q": "If the instruction asks the drone to find objects with a given marker in the scene but does not require finding all of them",
+        "S": "Search in increasing distance from the UAV; at each candidate, verify the marker in vision; stop and report upon the first confident match. Do not continue after a successful identification unless the user asks for more."
+    },
+    {
+        "Q": "If the instruction asks the drone to find objects with a given marker in the scene and requires finding all of them",
+        "S": "Systematically scan all objects, confirming markers in vision; maintain a list of matches; only finish after every object has been checked or the workspace has been fully covered once."
+    },
+    {
+        "Q": "If the instruction is a firefighting task but gives no fire source location and no water source or firefighting facility location",
+        "S": "Survey all objects for fire and water or equipment markers using the inspection pattern above; once partners are found, execute shuttle runs from water or equipment to fire as specified, then report status."
+    },
+    {
+        "Q": "If the instruction does not require obstacle avoidance during flight or gives no specific obstacle-avoidance rules",
+        "S": "Assume obstacle avoidance is on: maintain clearance from frames and blocks even when rushing; only tighten paths when the user explicitly allows contact risk."
+    },
+    {
+        "Q": "If the instruction is a delivery or handoff task but gives no concrete pickup or drop-off positions while describing the payload and goal by traits or markers",
+        "S": "Discover pickup and drop landmarks by vision, confirm both before motion, then execute a single clean transfer path between them with obstacle-aware routing."
+    },
+    {
+        "Q": "If the instruction is to fly through, pass through, traverse, or align with a rectangular frame, slot, gate, or portal, possibly named by color (e.g. yellow, red, blue)",
+        "S": "Treat this as a precision portal task: (1) segment and pick only the frame color the user named; ignore other colors. (2) Estimate the long axis of the opening and yaw the body so the long axis of the drone aligns with passage. (3) Approach the opening center along the inward normal with sub-opening clearance. (4) Translate through the centroid of the slot without rim contact, then stabilize on the far side. Use both external workspace color cues and onboard view for alignment."
+    },
+    {
+        "Q": "If the instruction says to fly safely, carefully, smoothly, slowly, or to avoid harsh motion",
+        "S": "Limit step-to-step position changes, keep attitude rates moderate, and prefer collision-free detours over shortest jerky paths even if the mission takes longer."
+    },
+    {
+        "Q": "If the instruction mentions a drone, UAV, quadcopter, flying robot, or autonomous flight in this tabletop simulation but does not restate workspace boundaries",
+        "S": "All motion must stay inside the WidowX-style reach box mapped to the scene: never command world positions that abandon the table workspace; if the policy output drifts, bias corrections back toward the workspace center and valid targets."
+    },
+    {
+        "Q": "If the instruction is to hover, hold position, wait, pause, or loiter",
+        "S": "Minimize translational velocity, hold nominal altitude inside the workspace, and reject large spontaneous excursions until the user provides a new motion command."
+    },
+    {
+        "Q": "If the instruction is to approach, land near, go beside, or dock with a colored block or object when a color is given",
+        "S": "Servo the centroid of that color in image until it is centered and at a commanded standoff distance; descend only within safe ground clearance; decelerate before the final hold point."
+    },
+    {
+        "Q": "If the instruction is to return to start, go home, return to launch, or resume the initial pose",
+        "S": "Plan a safe path back to the approximate starting pose over the table; avoid crossing through obstacles; once close, reduce speed for final alignment."
+    },
+    {
+        "Q": "If the instruction is to orbit, circle, or loop around a point, object, or the workspace",
+        "S": "Execute a smooth closed curve at roughly constant radius and altitude inside the workspace; keep the target in the field of view throughout; avoid folding the path outside the box."
+    },
+    {
+        "Q": "If the instruction is to ascend, climb, rise, or gain altitude",
+        "S": "Increase vertical coordinate within the workspace ceiling cap only; check for overhead obstacles; level off once the requested band is reached."
+    },
+    {
+        "Q": "If the instruction is to descend, lower, drop altitude, or go down toward the table",
+        "S": "Descend with ground clearance in mind; slow before reaching table height; never penetrate below the valid workspace floor."
+    },
+    {
+        "Q": "If the instruction states a primary verb such as patrol, approach, pass through, search, deliver, inspect, follow, track, or avoid",
+        "S": "Parse that verb as the sole mission driver: schedule sub-goals that satisfy it first; do not substitute an unrelated tour (for example, do not replace patrol with random drift). After each sub-goal, re-read the user sentence to ensure behavior still matches."
+    },
+    {
+        "Q": "If the instruction could match multiple colored objects and the user names a specific color",
+        "S": "Bind attention exclusively to that color; treat other hues as distractors. If two same-color instances exist, prefer the one best aligned with the current heading and nearest in depth."
+    },
+    {
+        "Q": "If the instruction requires verifying a target in camera before committing to a long translation",
+        "S": "Perform a short alignment maneuver until the target feature is centered and scaled appropriately in the image; only then execute the longer transit or portal crossing."
+    },
+    {
+        "Q": "If the user asks for a demonstration, display, pattern, or aerial trajectory over the workspace (e.g. figure-eight, racetrack oval, diamond path, smooth circuit, orbit, patrol in the air) and the wording does not require passing through or aligning with a rectangular portal or frame",
+        "S": "This is non-portal scenic flight: the first /act uses a global top-down render (when language_only_demo_plan_use_topdown_camera is true) so the policy sees the tabletop layout like the operator's world_top recording; after decoding the full action chunk, the client maps XY onto the intersection of the scene objects' top-down axis-aligned bbox and the valid workspace footprint (with language_only_demo_fill_xy_margin_m) so the path fills that rectangle edge-to-edge in plan view, then arc-length playback without further /act unless language_only_demo_xvla_trajectory_once is false. Raise Z per policy ± workspace clearance; increase language_only_demo_traj_plan_steps if the polyline is too coarse."
+    }
+]
