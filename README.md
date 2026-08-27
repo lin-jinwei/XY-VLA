@@ -6,8 +6,6 @@ Language-guided portal navigation in PyBullet using the [X-VLA](https://github.c
 
 Built on **X-VLA 0.9B (WidowX Edition)** with **EE6D** action semantics inside a WidowX arm workspace, extended with a three-phase navigation stack (coarse X-VLA planning → top-down A* → action-aware trajectory refinement).
 
-<p align="center"><a href="results.md"><strong>TestResult / View test results</strong></a> — 43 recorded missions, four-view GIFs</p>
-
 ## Features
 
 - **Natural-language missions** — `billboard_id=N` portal targeting, multi-clause chains (`then`, `;`), and five basic actions: pass-through, fly-by, orbit, hover, collision (debug).
@@ -17,6 +15,52 @@ Built on **X-VLA 0.9B (WidowX Edition)** with **EE6D** action semantics inside a
 - **Recording & visualization** — Multi-view MP4/GIF under `recordings/`, top-down overlays, Phase 3 color feedback, optional GUI.
 - **Configurable schemes** — `config.json` presets for GUI debug, fast batch runs, and demo playback (`--scheme 1|2|3|widowx_ee6d`).
 
+
+## Test Result
+
+#### 1-1_Fly through the yellow opening
+
+<p>
+<img src="recordings/1-1_Fly%20through%20the%20yellow%20opening/world_45deg.gif" width="49%" alt="45deg" />
+<img src="recordings/1-1_Fly%20through%20the%20yellow%20opening/world_front.gif" width="49%" alt="front" />
+</p>
+<p>
+<img src="recordings/1-1_Fly%20through%20the%20yellow%20opening/world_right.gif" width="49%" alt="right" />
+<img src="recordings/1-1_Fly%20through%20the%20yellow%20opening/world_top.gif" width="49%" alt="top" />
+</p>
+
+#### 1-2_Pass through the nearest red portal
+
+<p>
+<img src="recordings/1-2_Pass%20through%20the%20nearest%20red%20portal/world_45deg.gif" width="49%" alt="45deg" />
+<img src="recordings/1-2_Pass%20through%20the%20nearest%20red%20portal/world_front.gif" width="49%" alt="front" />
+</p>
+<p>
+<img src="recordings/1-2_Pass%20through%20the%20nearest%20red%20portal/world_right.gif" width="49%" alt="right" />
+<img src="recordings/1-2_Pass%20through%20the%20nearest%20red%20portal/world_top.gif" width="49%" alt="top" />
+</p>
+
+#### 2-1_Fly a figure-eight path in the air over the workspace
+
+<p>
+<img src="recordings/2-1_Fly%20a%20figure-eight%20path%20in%20the%20air%20over%20the%20workspace/world_45deg.gif" width="49%" alt="45deg" />
+<img src="recordings/2-1_Fly%20a%20figure-eight%20path%20in%20the%20air%20over%20the%20workspace/world_front.gif" width="49%" alt="front" />
+</p>
+<p>
+<img src="recordings/2-1_Fly%20a%20figure-eight%20path%20in%20the%20air%20over%20the%20workspace/world_right.gif" width="49%" alt="right" />
+<img src="recordings/2-1_Fly%20a%20figure-eight%20path%20in%20the%20air%20over%20the%20workspace/world_top.gif" width="49%" alt="top" />
+</p>
+
+#### 2-2_Fly a racetrack oval in the air over the workspace
+
+<p>
+<img src="recordings/2-2_Fly%20a%20racetrack%20oval%20in%20the%20air%20over%20the%20workspace/world_45deg.gif" width="49%" alt="45deg" />
+<img src="recordings/2-2_Fly%20a%20racetrack%20oval%20in%20the%20air%20over%20the%20workspace/world_front.gif" width="49%" alt="front" />
+</p>
+<p>
+<img src="recordings/2-2_Fly%20a%20racetrack%20oval%20in%20the%20air%20over%20the%20workspace/world_right.gif" width="49%" alt="right" />
+<img src="recordings/2-2_Fly%20a%20racetrack%20oval%20in%20the%20air%20over%20the%20workspace/world_top.gif" width="49%" alt="top" />
+</p>
 
 ## Prerequisites
 
