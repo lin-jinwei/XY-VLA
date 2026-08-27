@@ -4,7 +4,7 @@ Code for paper: XY-VLA: Zero-Shot Cross-Embodiment UAV VLA via X-VLA.
 
 By using the commands listed in the command.md file, can fast run XY-VLA.
 
-One-click to start in [X-VLA](https://huggingface.co/LinJinwei/XY-VLA).
+One-click to start in [Huggingface/LinJinwei/XY-VLA](https://huggingface.co/LinJinwei/XY-VLA).
 
 Language-guided portal navigation in PyBullet using the [X-VLA](https://github.com/2toINF/X-VLA) vision-language-action model. Fly a virtual end-effector through numbered rectangular portals, orbit frames, hover, or execute multi-leg missions from natural-language `--cmd` instructions.
 
